@@ -1,10 +1,9 @@
-from aiogram import Router, types
+from aiogram import Router
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from database import add_student
-import re
 
 router = Router()
 
@@ -16,13 +15,13 @@ class StudentForm(StatesGroup):
 
 
 @router.message(CommandStart())
-async def start(message: Message, state: FSMContext):
+async def start_command(message: Message, state: FSMContext):
     await message.answer("Привет! Я бот для регистрации студентов. Введите ваше имя:")
     await state.set_state(StudentForm.name)
 
 
 @router.message(Command(commands=["help"]))
-async def help(message: Message):
+async def help_command(message: Message):
     help_text = (
         "Этот бот умеет выполнять следующие команды:\n"
         "/start - Запустить бота\n"
